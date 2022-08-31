@@ -1,11 +1,13 @@
 package model;
 
+import util.Contador;
+
 public abstract class Pessoa {
     private String nome;
     private String email;
     private String cidade;
     private String senha;
-    
+    private Integer id;
     
     public String getNome() {
         return nome;
@@ -36,6 +38,13 @@ public abstract class Pessoa {
         this.email = email;
         this.cidade = cidade;
         this.senha = senha;
+        this.id = Contador.ProximoId();
+    }
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     
