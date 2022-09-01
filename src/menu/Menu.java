@@ -12,8 +12,7 @@ public class Menu {
         System.out.println("============================================");
     }
     public static void menuCliente1() {
-        System.out.println("VocÊ já tem cadastro? Digite seu email:");
-        System.out.println("Digite 2 caso não tenha cadastro");
+        System.out.println("Digite seu email:");
     }
     public static void menuCliente2() {
         System.out.println("Digite a opção desejada: ");
