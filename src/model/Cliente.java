@@ -13,6 +13,14 @@ public class Cliente extends Pessoa {
 
     }
 
+    public List<Veiculo> getVeiculos() {
+        return veiculos;
+    }
+
+    public void setVeiculos(List<Veiculo> veiculos) {
+        this.veiculos = veiculos;
+    }
+    
 
     
 }

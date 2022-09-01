@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.Cliente;
+import model.Veiculo;
 import repository.ClienteRepository;
 
 public class ClienteService {
@@ -47,4 +48,8 @@ public class ClienteService {
         return cliente.getSenha().equals(senha);
     }
 
+    public void alugarVeiculo(Cliente cliente, Veiculo veiculo) {
+        cliente.getVeiculos().add(veiculo);
+        this.repository.salvar(cliente);
+    }
 }

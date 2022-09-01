@@ -2,18 +2,21 @@ import java.util.Scanner;
 
 import menu.Menu;
 import model.Cliente;
+import model.Veiculo;
 import repository.AdministradorRepository;
 import repository.ClienteRepository;
 import repository.VeiculoRepository;
 import repository.VendedorRepository;
 import service.AdministradorService;
 import service.ClienteService;
+import service.VeiculoService;
 
 public class App {
     public static void main(String[] args) throws Exception {
     Scanner sc = new Scanner(System.in);
     ClienteService clienteService = new ClienteService(sc);
-    AdministradorService adminService = new AdministradorService(sc);
+    VeiculoService veiculoService = new VeiculoService(sc);
+    AdministradorService adminService = new AdministradorService(sc, veiculoService);
     boolean continua = true;
     do{
         Menu.menu1();
@@ -35,13 +38,23 @@ public class App {
                         break;
                     }
                 }
-         if(!senhaCorreta) {
-                    break;
-                }       
+            if(!senhaCorreta) {
+                            break;
+                }    
+                Menu.menuCliente2();
+                int opcao2 = sc.nextInt();
+
+                if(opcao2 == 1) {
+                    System.out.println("Digite o número referente ao veículo desejado: ");
+                    veiculoService.buscarTodosVeiculosLivres();
+                    int opcaoCarro = sc.nextInt();
+                    Veiculo veiculo = veiculoService.alugarVeiculaPorId(opcaoCarro);
+                    clienteService.alugarVeiculo(cliente, veiculo);
+                }
                 break;
             case 2:
                 Menu.menuVendedor1();
-                int opcao2 = sc.nextInt();
+                opcao2 = sc.nextInt();
                 break;
             case 3:
                 Menu.menuAdministrador();

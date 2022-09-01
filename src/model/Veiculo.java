@@ -24,6 +24,9 @@ public class Veiculo {
         this.status = Status.LIVRE;
     }
 
+    public String toString() {
+        return this.id + " - " + this.modelo + " " + this.marca + " " + this.marca + " " + this.cor + " " + this.valorLocacao;
+    }
 
     public Integer getId() {
         return id;
