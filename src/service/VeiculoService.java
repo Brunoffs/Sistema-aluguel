@@ -14,6 +14,9 @@ public class VeiculoService {
 
     public VeiculoService(Scanner sc) {
         this.sc = sc;
+        veiculoRepository.salvar(new Veiculo("A3", "Audi", "Branco", "IOP-2939", "Carro", 150));
+        veiculoRepository.salvar(new Veiculo("Palio", "Fiat", "Verde", "GJI-4258", "Carro", 80));
+        veiculoRepository.salvar(new Veiculo("HB 20", "Hyundai", "Preto", "ZWA-8068", "Carro", 120));
     }
     
     public void cadastrarVeiculo() {
@@ -56,4 +59,11 @@ public class VeiculoService {
 
         return veiculo;
     }    
+
+    public Veiculo devolverVeiculo(int id) {
+        Veiculo veiculo = this.veiculoRepository.buscarPorId(id);
+        veiculo.setStatus(Status.LIVRE);
+        this.veiculoRepository.salvar(veiculo);
+        return veiculo;
+    }
 }

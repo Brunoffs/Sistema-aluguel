@@ -11,7 +11,7 @@ public class Menu {
         System.out.println("0 - Sair do sistema");
         System.out.println("============================================");
     }
-    public static void menuCliente1() {
+    public static void menu2() {
         System.out.println("Digite seu email:");
     }
     public static void menuCliente2() {
