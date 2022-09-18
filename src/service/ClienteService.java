@@ -6,6 +6,7 @@ import java.util.Scanner;
 import model.Cliente;
 import model.Veiculo;
 import repository.ClienteRepository;
+import util.Normaliza;
 
 public class ClienteService {
     Scanner sc;
@@ -14,7 +15,7 @@ public class ClienteService {
     public Cliente ConfereEmail(String email) {
         List<Cliente> clientesCadastrados = repository.BuscarTodos();
         for(Cliente cliente : clientesCadastrados) {
-            if(cliente.getEmail().equals(email)) {
+            if(cliente.getEmail().equals(Normaliza.normalizaEmail(email))) {
                 return cliente;
             }
         }

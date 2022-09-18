@@ -6,6 +6,7 @@ import java.util.Scanner;
 import model.Veiculo;
 import model.Vendedor;
 import repository.VendedorRepository;
+import util.Normaliza;
 
 public class VendedorService {
     Scanner sc;
@@ -22,7 +23,7 @@ public class VendedorService {
     public Vendedor ConfereEmail(String email) {
         List<Vendedor> vendedoresCadastrados = repository.BuscarTodos();
         for(Vendedor vendedor : vendedoresCadastrados) {
-            if(vendedor.getEmail().equals(email)) {
+            if(vendedor.getEmail().equals(Normaliza.normalizaEmail(email))) {
                 return vendedor;
             }
         }
@@ -74,5 +75,22 @@ public class VendedorService {
         System.out.println("Seu salário atual é: " + vendedor.getSalario());
         System.out.println("Sua comissão é: " + comissao);
         System.out.println("Seu salário com comissão é: " + (vendedor.getSalario() + comissao));
+    }
+
+    public void cadastrarVendedor() {
+        System.out.println("Criando o seu cadastro!");
+        System.out.println("Digite seu nome:");
+        String nome = sc.nextLine();
+        System.out.println("Digite seu email:");
+        String email = sc.nextLine();
+        System.out.println("Digite sua cidade: ");
+        String cidade = sc.nextLine();
+        System.out.println("Crie sua senha: ");
+        String senha = sc.nextLine();
+        System.out.println("Digite o salário: ");
+        double salario = sc.nextDouble();
+        Vendedor vendedor = new Vendedor(nome, email, cidade, senha, salario);
+        repository.salvar(vendedor);
+        System.out.println("Cadastro criado com sucesso!");
     }
 }

@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 import menu.Menu;
+import model.Administrador;
 import model.Cliente;
 import model.Veiculo;
 import model.Vendedor;
@@ -15,7 +16,7 @@ public class App {
     ClienteService clienteService = new ClienteService(sc);
     VeiculoService veiculoService = new VeiculoService(sc);
     VendedorService vendedorService = new VendedorService(sc);
-    AdministradorService adminService = new AdministradorService(sc, veiculoService);
+    AdministradorService adminService = new AdministradorService(sc, veiculoService, vendedorService);
     boolean continua = true;
     do{
         Menu.menu1();
@@ -91,6 +92,23 @@ public class App {
                 }
             break;
             case 3:
+                Menu.menu2();
+                email = sc.nextLine();
+                Administrador administrador = adminService.ConfereEmail(email);
+                senhaCorreta = false;
+                for (int i = 0; i < 3; i++) {
+                    System.out.println("Agora digite a sua senha:");
+                    String senha = sc.nextLine();
+                    senhaCorreta = adminService.confereSenha(administrador, senha);
+                    if(!senhaCorreta) {
+                        System.out.println("Senha incorreta, tente novamente (tentativa " + (i+1) + " de 3).");
+                    }else {
+                        break;
+                    }
+                }
+            if(!senhaCorreta) {
+                            break;
+                }    
                 Menu.menuAdministrador();
                 opcao2 = sc.nextInt();
                 adminService.confereEntrada(opcao2);
