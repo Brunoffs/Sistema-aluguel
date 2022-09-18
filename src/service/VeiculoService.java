@@ -3,6 +3,8 @@ package service;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.SistemaException;
+import model.Cliente;
 import model.Veiculo;
 import model.Veiculo.Status;
 import repository.VeiculoRepository;
@@ -49,9 +51,12 @@ public class VeiculoService {
         }
     }
 
-    public Veiculo alugarVeiculaPorId(int id) {
+    public Veiculo alugarVeiculaPorId(int id) throws SistemaException {
         Veiculo veiculo = this.veiculoRepository.buscarPorId(id);
 
+        if(veiculo == null) {
+            throw new SistemaException("Veículo não encontrado");
+        }
         veiculo.setStatus(Status.ALUGADO);
 
         this.veiculoRepository.salvar(veiculo);
@@ -59,8 +64,14 @@ public class VeiculoService {
         return veiculo;
     }    
 
-    public Veiculo devolverVeiculo(int id) {
+    public Veiculo devolverVeiculo(Cliente cliente, int id) throws SistemaException {
         Veiculo veiculo = this.veiculoRepository.buscarPorId(id);
+        if(veiculo == null) {
+            throw new SistemaException("Veículo não encontrado");
+        }
+        if(!cliente.getVeiculos().contains(veiculo)) {
+            throw new SistemaException("Você não possui este veículo");
+        }
         veiculo.setStatus(Status.LIVRE);
         this.veiculoRepository.salvar(veiculo);
         return veiculo;

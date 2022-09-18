@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import exceptions.SistemaException;
@@ -57,11 +58,14 @@ public class App {
                     int opcaoVendedor = sc.nextInt();
                     vendedorService.salvarVeiculo(veiculo, opcaoVendedor);
                 }else if (opcao2 == 2) {
+                    if(cliente.getVeiculos().size() <= 0) {
+                        throw new SistemaException("Você não tem veículos para devolver");
+                    }
                     System.out.println("Digite o número referente ao veículo desejado: ");
                     clienteService.buscarCarrosAlugados(cliente);
 
                     int opcaoCarro = sc.nextInt();
-                    Veiculo veiculoDevolvido = veiculoService.devolverVeiculo(opcaoCarro);
+                    Veiculo veiculoDevolvido = veiculoService.devolverVeiculo(cliente, opcaoCarro);
                     clienteService.removerVeiculo(cliente, veiculoDevolvido);
                 }
                 break;
@@ -130,6 +134,10 @@ public class App {
         }
     }catch(SistemaException erro) {
         System.out.println(erro.getMessage());
+    }catch(InputMismatchException erro) {
+        System.out.println("Opção inválida");
+        sc.next();
+    }finally {
         Thread.sleep(1500);
     }
     }while(continua);

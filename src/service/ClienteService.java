@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.SistemaException;
 import model.Cliente;
 import model.Veiculo;
 import repository.ClienteRepository;
@@ -20,19 +21,17 @@ public class ClienteService {
             }
         }
 
-        return this.cadastrarCliente();
+        return this.cadastrarCliente(email);
     }
     public ClienteService(Scanner sc) {
         this.sc = sc;
         this.repository.salvar(new Cliente("Eduardo", "eduardo@gmail.com", "Canoas", "1234"));
     }
 
-    private Cliente cadastrarCliente() {
+    private Cliente cadastrarCliente(String email) {
         System.out.println("Criando o seu cadastro!");
         System.out.println("Digite seu nome:");
         String nome = sc.nextLine();
-        System.out.println("Digite seu email:");
-        String email = sc.nextLine();
         System.out.println("Digite sua cidade:");
         String cidade = sc.nextLine();
         System.out.println("Crie sua senha:");
@@ -62,8 +61,11 @@ public class ClienteService {
         }
     }
 
-    public void removerVeiculo(Cliente clienteParam, Veiculo veiculoParam) {
+    public void removerVeiculo(Cliente clienteParam, Veiculo veiculoParam) throws SistemaException {
          Cliente cliente = this.repository.buscarPorId(clienteParam.getId());
+         if(cliente == null) {
+            throw new SistemaException("Veículo não encontrado");
+        }
          cliente.getVeiculos().remove(veiculoParam);
          this.repository.salvar(clienteParam);
     }
