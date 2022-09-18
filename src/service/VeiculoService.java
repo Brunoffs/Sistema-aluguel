@@ -1,10 +1,10 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import model.Veiculo;
+import model.Vendedor;
 import model.Veiculo.Status;
 import repository.VeiculoRepository;
 
@@ -66,4 +66,5 @@ public class VeiculoService {
         this.veiculoRepository.salvar(veiculo);
         return veiculo;
     }
+
 }

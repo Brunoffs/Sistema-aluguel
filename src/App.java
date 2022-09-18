@@ -4,10 +4,6 @@ import menu.Menu;
 import model.Cliente;
 import model.Veiculo;
 import model.Vendedor;
-import repository.AdministradorRepository;
-import repository.ClienteRepository;
-import repository.VeiculoRepository;
-import repository.VendedorRepository;
 import service.AdministradorService;
 import service.ClienteService;
 import service.VeiculoService;
@@ -53,6 +49,10 @@ public class App {
                     int opcaoCarro = sc.nextInt();
                     Veiculo veiculo = veiculoService.alugarVeiculaPorId(opcaoCarro);
                     clienteService.alugarVeiculo(cliente, veiculo);
+                    System.out.println("Digite o número do vendedor que lhe atendeu: ");
+                    vendedorService.retornaTodosVendedores();
+                    int opcaoVendedor = sc.nextInt();
+                    vendedorService.salvarVeiculo(veiculo, opcaoVendedor);
                 }else if (opcao2 == 2) {
                     System.out.println("Digite o número referente ao veículo desejado: ");
                     clienteService.buscarCarrosAlugados(cliente);
@@ -78,14 +78,18 @@ public class App {
                     }
                 }
             if(!senhaCorreta) {
-                            break;
+                 break;
                 }    
                 Menu.menuVendedor1();
                 opcao2 = sc.nextInt();
                 if(opcao2 == 1) {
+                    vendedorService.mostrarAlugueisVeiculos(vendedor);
+                }else if(opcao2 == 2) {
                     vendedorService.verSalario(vendedor);
-                }else if(opcao2 ==2)
-                break;
+                }else if(opcao2 == 3) {
+                    vendedorService.verSalarioComComissao(vendedor);
+                }
+            break;
             case 3:
                 Menu.menuAdministrador();
                 opcao2 = sc.nextInt();

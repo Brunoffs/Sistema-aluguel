@@ -23,8 +23,16 @@ public class AdministradorService {
         sc.nextLine();
         if(entrada==1) {
             veiculoService.cadastrarVeiculo();
+        }else if(entrada == 2) {
+            this.removerVeiculo();
         }
     }
-    
+    public void removerVeiculo() {
+        System.out.println("Todos os veículos cadastrados e livres no sistema: ");
+        veiculoService.buscarTodosVeiculosLivres();
+        int opcaoVeiculo = sc.nextInt();
+        veiculoService.veiculoRepository.removerPorId(opcaoVeiculo);
+        System.out.println("Veículo removido com sucesso!");
+    }
 
 }
