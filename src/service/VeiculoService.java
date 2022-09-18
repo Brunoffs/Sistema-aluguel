@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.Veiculo;
-import model.Vendedor;
 import model.Veiculo.Status;
 import repository.VeiculoRepository;
 

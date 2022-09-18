@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import exceptions.SistemaException;
 import menu.Menu;
 import model.Administrador;
 import model.Cliente;
@@ -19,6 +20,7 @@ public class App {
     AdministradorService adminService = new AdministradorService(sc, veiculoService, vendedorService);
     boolean continua = true;
     do{
+        try{
         Menu.menu1();
         int opcao1 = sc.nextInt();
         sc.nextLine();
@@ -67,6 +69,9 @@ public class App {
                 Menu.menu2();
                 email = sc.nextLine();
                 Vendedor vendedor = vendedorService.ConfereEmail(email);
+                if (vendedor == null) {
+                    throw new SistemaException("Vendedor não encontrado");
+                }
                 senhaCorreta = false;
                 for (int i = 0; i < 3; i++) {
                     System.out.println("Agora digite a sua senha:");
@@ -95,6 +100,9 @@ public class App {
                 Menu.menu2();
                 email = sc.nextLine();
                 Administrador administrador = adminService.ConfereEmail(email);
+                if (administrador == null) {
+                    throw new SistemaException("Administrador não encontrado");
+                }
                 senhaCorreta = false;
                 for (int i = 0; i < 3; i++) {
                     System.out.println("Agora digite a sua senha:");
@@ -120,6 +128,10 @@ public class App {
                 System.out.println("Opção inválida! Tente novamente");
                 break;
         }
+    }catch(SistemaException erro) {
+        System.out.println(erro.getMessage());
+        Thread.sleep(1500);
+    }
     }while(continua);
 
     }

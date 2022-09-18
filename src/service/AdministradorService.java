@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import model.Administrador;
-import model.Cliente;
 import repository.AdministradorRepository;
 import util.Normaliza;
 
